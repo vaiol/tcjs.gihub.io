@@ -19,7 +19,6 @@ class Chart {
     this.chartName = name;
     this.div = div;
     this.canvas = div.querySelector('.chart');
-    console.log(window.OffscreenCanvas);
     this.canvas.offscreenCanvas = window.OffscreenCanvas
       ? new OffscreenCanvas(this.canvas.width, this.canvas.height)
       : document.createElement('canvas');
@@ -123,7 +122,7 @@ class Chart {
       diff: 1,
       shades: 5,
       path: 0,
-      animation: false,
+      animation: true,
     };
     this.text = {
       font: '25px Arial',
