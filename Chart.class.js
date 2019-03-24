@@ -933,6 +933,7 @@ class Chart {
     const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
     const canvasRect = this.canvas.getBoundingClientRect();
     const x = (clientX - canvasRect.left) * (this.canvas.width / canvasRect.width);
+    this.cursor.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     if (this.x.points[h][this.start] <= x && x <= this.x.points[h][this.start] + this.h.xWidth) {
       this.h.handle = 'left';
       this.h.handleX = x;
