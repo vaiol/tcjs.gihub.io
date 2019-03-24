@@ -3,29 +3,23 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #FFFFFF;
 }
-
 h1 {
   margin-left: 20px;
 }
-
 canvas {
   margin: auto;
 }
-
 .positioner, .manipulator-handler, .grade, .xGrade {
   position: absolute;
   margin: auto;
   left: 0; right: 0;
 }
-
 .chart {
   z-index: 5;
 }
-
 .manipulator-handler, .positioner {
   z-index: 7 !important;
 }
-
 .main {
   margin-bottom: 150px;
   display: flex;
@@ -34,20 +28,15 @@ canvas {
   align-items: start;
   position: relative;
 }
-
 .container {
   display: flex;
   flex-direction: row;
   position: relative;
   margin: auto;
 }
-
 .container > h1 {
   margin-left: 0;
 }
-
-/*Button*/
-
 button {
   user-select: none;
   display: flex;
@@ -65,12 +54,10 @@ button {
   font-weight: 300;
   margin: 10px 5px;
 }
-
 button > span {
   display: inline-block;
   margin: 0 11px;
 }
-
 button > div {
   display: inline-block;
   position: relative;
@@ -83,12 +70,10 @@ button > div {
   border-width: 2px;
   border-style: solid;
 }
-
 button > div > img {
   height: 100%;
   border-radius: 50%;
 }
-
 button > div > div {
   display: inline-block;
   position: absolute;
@@ -99,23 +84,18 @@ button > div > div {
   border-radius: 50%;
   animation: undo .2s forwards;
 }
-
 button > .disabled > div {
   animation: do .2s forwards;
 }
-
 button:focus {
   outline:0;
 }
-
 .buttons > button:first-child {
   margin-left: 0;
 }
-
 .buttons {
   margin-top: 10px;
 }
-
 @keyframes do {
   from {
     transform: scale(0);
@@ -124,7 +104,6 @@ button:focus {
     transform: scale(1);
   }
 }
-
 @keyframes undo {
   from {
     transform: scale(1);
@@ -133,8 +112,8 @@ button:focus {
     transform: scale(0);
   }
 }
-
 #label {
+  display: none;
   position: absolute;
   border-radius: 3px;
   background-color: #253242;
@@ -145,17 +124,14 @@ button:focus {
   box-shadow: 0 0 2px rgba(0,0,0,0.5);
   z-index: 2;
 }
-
 #label > .container {
   margin: 5px 10px;
   text-align: center;
 }
-
 #label > .container > div {
   text-align: center;
   margin: 0 8px;
 }
-
 #label span:last-child {
   font-weight: 300
 }
@@ -164,7 +140,6 @@ button:focus {
   display: inline-block;
   font-weight: 800;
 }
-
 #mode {
   margin: 50px auto;
   padding: 5px 20px;

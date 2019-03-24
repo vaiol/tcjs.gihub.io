@@ -64,11 +64,10 @@ class Chart {
     this.chart = {
       lineWidth: 2 * window.devicePixelRatio,
     };
-    this.animation = {
+    this.ani = {
       alpha: 5,
       step: 5,
       raf: null,
-      processing: ['_animationTickChart', '_animationTickHandler'],
     };
     this.cursor = {
       borderColor: '#364555',
@@ -277,7 +276,7 @@ class Chart {
     this.xGrades.data[1] = this.xGrades.data[0];
     this.xGrades.data[0] = dates;
     this.xGrades.alpha = 0;
-    this.xGrades.animation = true;
+    this.xGrades.ani = true;
   }
 
   _convertToText(num) {
@@ -311,9 +310,9 @@ class Chart {
         continue;
       }
       if (diff < 0) {
-        this.grades.aPoints[n][i] += Math.floor(diff / this.animation.step);
+        this.grades.aPoints[n][i] += Math.floor(diff / this.ani.step);
       } else {
-        this.grades.aPoints[n][i] += Math.ceil(diff / this.animation.step);
+        this.grades.aPoints[n][i] += Math.ceil(diff / this.ani.step);
       }
       this._drawYGradeLine(n, i, 'aPoints');
     }
@@ -334,7 +333,7 @@ class Chart {
     this._drawYGrade(1);
 
     if (completed === this.grades.points[0].length && this.grades.shades === 5) {
-      this.grades.animation = false;
+      this.grades.ani = false;
       return true;
     }
     return true;
@@ -374,7 +373,7 @@ class Chart {
     let completedAll = 0;
     const xComp = this._animationX();
     for (let i = 0; i < this.lines.length; i++) {
-      if (!this.charts[i][c].animation) {
+      if (!this.charts[i][c].ani) {
         this._printLineC(i, 'points');
         completedAll++;
         continue;
@@ -386,9 +385,9 @@ class Chart {
     this._drawXGrades();
     // this.canvas.ctx.transferFromImageBitmap(this.canvas.offscreenCanvas.transferToImageBitmap());
     if (completedAll === this.lines.length && comp && xComp) {
-      this.animation.raf = null;
+      this.ani.raf = null;
     } else {
-      this.animation.raf = requestAnimationFrame(() => this._animationFrame());
+      this.ani.raf = requestAnimationFrame(() => this._animationFrame());
     }
   }
 
@@ -397,9 +396,9 @@ class Chart {
     for (let i = 0; i < this.x.data.length; i++) {
       const diff = this.x.points[c][i] - this.x.aPoints[i];
       if (diff < 0) {
-        this.x.aPoints[i] += Math.floor(diff / this.animation.step);
+        this.x.aPoints[i] += Math.floor(diff / this.ani.step);
       } else {
-        this.x.aPoints[i] += Math.ceil(diff / this.animation.step);
+        this.x.aPoints[i] += Math.ceil(diff / this.ani.step);
       }
       r += Math.abs(diff);
     }
@@ -417,18 +416,18 @@ class Chart {
     for (let i = 0; i < this.lines[line].data.length; i++) {
       const diff = this.charts[line][c].points[i] - this.charts[line][c].aPoints[i];
       if (diff < 0) {
-        this.charts[line][c].aPoints[i] += Math.floor(diff / this.animation.step);
+        this.charts[line][c].aPoints[i] += Math.floor(diff / this.ani.step);
       } else {
-        this.charts[line][c].aPoints[i] += Math.ceil(diff / this.animation.step);
+        this.charts[line][c].aPoints[i] += Math.ceil(diff / this.ani.step);
       }
       lDiff += Math.abs(diff);
     }
     if (!this.lines[line].selected && this.charts[line][c].alpha > 0) {
-      this.charts[line][c].alpha -= this.animation.alpha;
+      this.charts[line][c].alpha -= this.ani.alpha;
     } else if (this.lines[line].reselected && this.charts[line][c].alpha < 10) {
-      this.charts[line][c].alpha += this.animation.alpha;
+      this.charts[line][c].alpha += this.ani.alpha;
     } else if (lDiff < this.charts[line][c].aPoints.length) {
-      this.charts[line][c].animation = false;
+      this.charts[line][c].ani = false;
     }
     this._printLineC(line, 'aPoints');
   }
@@ -467,7 +466,7 @@ class Chart {
       i += 1;
       min += this.grades.step;
     }
-    this.grades.animation = true;
+    this.grades.ani = true;
     this.grades.shades = 0;
     this.grades.max = this.edges.charts[c].max;
   }
@@ -478,13 +477,13 @@ class Chart {
     this.ctx[c].clearRect(0, 0, this.canvas.width, this.canvas.height);
     let completedAll = 0;
     for (let i = 0; i < this.lines.length; i++) {
-      if (!this.charts[i][c].animation) {
+      if (!this.charts[i][c].ani) {
         this._printLineC(i, 'points');
         completedAll++;
       } else {
         this._animationTickChart(i);
       }
-      if (!this.charts[i][h].animation) {
+      if (!this.charts[i][h].ani) {
         this._printLineH(i, 'points');
         completedAll++;
       } else {
@@ -495,21 +494,21 @@ class Chart {
     this._drawYGrades();
     this._drawXGrades();
     if (completedAll === this.lines.length * 2) {
-      this.animation.raf = null;
+      this.ani.raf = null;
     } else {
-      this.animation.raf = requestAnimationFrame(() => this._animationFrame2());
+      this.ani.raf = requestAnimationFrame(() => this._animationFrame2());
     }
   }
 
   _animate(both) {
-    if (this.animation.raf) {
-      window.cancelAnimationFrame(this.animation.raf);
-      this.animation.raf = null;
+    if (this.ani.raf) {
+      window.cancelAnimationFrame(this.ani.raf);
+      this.ani.raf = null;
     }
     if (both) {
-      this.animation.raf = requestAnimationFrame(() => this._animationFrame2());
+      this.ani.raf = requestAnimationFrame(() => this._animationFrame2());
     } else {
-      this.animation.raf = requestAnimationFrame(() => this._animationFrame());
+      this.ani.raf = requestAnimationFrame(() => this._animationFrame());
     }
   }
 
@@ -631,7 +630,7 @@ class Chart {
       for (let j = 0; j < this.charts[i][type].points.length; j++) {
         this.charts[i][type].points[j] = this._calculateYCoordinate(this.lines[i].data[j], type);
       }
-      this.charts[i][type].animation = true;
+      this.charts[i][type].ani = true;
     }
   }
 
@@ -651,18 +650,18 @@ class Chart {
     for (let i = 0; i < this.lines[line].data.length; i++) {
       const diff = this.charts[line][h].points[i] - this.charts[line][h].aPoints[i];
       if (diff < 0) {
-        this.charts[line][h].aPoints[i] += Math.floor(diff / this.animation.step);
+        this.charts[line][h].aPoints[i] += Math.floor(diff / this.ani.step);
       } else {
-        this.charts[line][h].aPoints[i] += Math.ceil(diff / this.animation.step);
+        this.charts[line][h].aPoints[i] += Math.ceil(diff / this.ani.step);
       }
       lDiff += Math.abs(diff);
     }
     if (!this.lines[line].selected && this.charts[line][h].alpha > 0) {
-      this.charts[line][h].alpha -= this.animation.alpha;
+      this.charts[line][h].alpha -= this.ani.alpha;
     } else if (this.lines[line].reselected && this.charts[line][h].alpha < 10) {
-      this.charts[line][h].alpha += this.animation.alpha;
+      this.charts[line][h].alpha += this.ani.alpha;
     } else if (Math.abs(lDiff) < this.charts[line][h].aPoints.length) {
-      this.charts[line][h].animation = false;
+      this.charts[line][h].ani = false;
     }
     this._printLineH(line, 'aPoints');
   }
@@ -775,8 +774,8 @@ class Chart {
       }
       this._printLineC(i, 'points');
       this._printLineH(i, 'points');
-      this.charts[i][c].animation = false;
-      this.charts[i][h].animation = false;
+      this.charts[i][c].ani = false;
+      this.charts[i][h].ani = false;
     }
     this._drawHandlerLine();
     this._drawYGrades();
@@ -931,6 +930,7 @@ class Chart {
 
   handlerdown(event) {
     const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
+    this.cursor.div.style.display = 'none';
     const canvasRect = this.canvas.getBoundingClientRect();
     const x = (clientX - canvasRect.left) * (this.canvas.width / canvasRect.width);
     this.cursor.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
