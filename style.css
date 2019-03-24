@@ -1,0 +1,180 @@
+body {
+  background-color: #242f3e;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #FFFFFF;
+}
+
+h1 {
+  margin-left: 20px;
+}
+
+canvas {
+  margin: auto;
+}
+
+.positioner, .manipulator-handler, .grade, .xGrade {
+  position: absolute;
+  margin: auto;
+  left: 0; right: 0;
+}
+
+.chart {
+  z-index: 5;
+}
+
+.manipulator-handler, .positioner {
+  z-index: 7 !important;
+}
+
+.main {
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  margin: auto;
+}
+
+.container > h1 {
+  margin-left: 0;
+}
+
+/*Button*/
+
+button {
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 40px;
+  height: 40px;
+  border: #364555 1px solid;
+  background: transparent;
+  vertical-align: middle;
+  padding-right: 5px;
+  font-size: 15px;
+  font-weight: 300;
+  margin: 10px 5px;
+}
+
+button > span {
+  display: inline-block;
+  margin: 0 11px;
+}
+
+button > div {
+  display: inline-block;
+  position: relative;
+  height: 19px;
+  width: 19px;
+  margin: 0 2px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  border-width: 2px;
+  border-style: solid;
+}
+
+button > div > img {
+  height: 100%;
+  border-radius: 50%;
+}
+
+button > div > div {
+  display: inline-block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  animation: undo .2s forwards;
+}
+
+button > .disabled > div {
+  animation: do .2s forwards;
+}
+
+button:focus {
+  outline:0;
+}
+
+.buttons > button:first-child {
+  margin-left: 0;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+@keyframes do {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes undo {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+#label {
+  position: absolute;
+  border-radius: 3px;
+  background-color: #253242;
+  font-size: 12px;
+  font-weight: 800;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+#label > .container {
+  margin: 5px 10px;
+  text-align: center;
+}
+
+#label > .container > div {
+  text-align: center;
+  margin: 0 8px;
+}
+
+#label span:last-child {
+  font-weight: 300
+}
+#label > .container > span {
+  margin: auto;
+  display: inline-block;
+  font-weight: 800;
+}
+
+#mode {
+  background-color:rgba(255,255,255, 0.1);
+  padding: 5px 20px;
+  border-radius: 50px;
+  position: fixed;
+  color: #0F8BE3;
+  font-size: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 50px;
+  cursor: pointer;
+  z-index: 10;
+}
