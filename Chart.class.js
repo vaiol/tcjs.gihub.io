@@ -210,20 +210,13 @@ class Chart {
   }
 
   _drawCursorLine(line, clientX, clientY) {
-    this.cursor.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.cursor.ctx.strokeStyle = this.cursor.color;
-    this.cursor.ctx.lineWidth = this.cursor.width;
-    this.cursor.ctx.beginPath();
-    this.cursor.ctx.moveTo(this.x.points[c][line], this.canvas.height / 10 + 5);
-    this.cursor.ctx.lineTo(this.x.points[c][line], this.canvas.height - this.canvas.height / 10);
-    this.cursor.ctx.stroke();
-
     const el = this.cursor.div.children[1];
     this.cursor.div.style.backgroundColor = this.cursor.label;
     this.cursor.div.style.color = this.cursor.labelColor;
     generateLableChild(el, this.lines.length);
 
     // draw cursor circles
+    let output = false;
     for (let i = 0, j = 0; i < this.lines.length; i++, j++) {
       if (!this.lines[i].selected) {
         continue;
@@ -244,19 +237,28 @@ class Chart {
       el.children[j].style.color = this.lines[i].color;
       el.children[j].children[0].innerHTML = this.lines[i].data[line];
       el.children[j].children[2].innerHTML = this.lines[i].name;
+      output = true;
     }
-
-    this.cursor.div.firstElementChild.firstElementChild.innerHTML = `${
-      this.x.data[line].weekDay
-    }, ${this.x.data[line].month} ${this.x.data[line].day}`;
-    this.cursor.div.style.display = 'block';
-    const tmp =
-      (window.innerWidth > 0 ? window.innerWidth : screen.width) -
-      clientX -
-      this.cursor.div.offsetWidth / 2;
-    const pos = clientX + (tmp < 0 ? tmp : 0) - this.cursor.div.offsetWidth / 2;
-    this.cursor.div.style.left = `${pos < 0 ? 0 : pos}px`;
-    this.cursor.div.style.top = `${clientY}px`;
+    if (output) {
+      this.cursor.div.firstElementChild.firstElementChild.innerHTML = `${
+        this.x.data[line].weekDay
+      }, ${this.x.data[line].month} ${this.x.data[line].day}`;
+      this.cursor.div.style.display = 'block';
+      const tmp =
+        (window.innerWidth > 0 ? window.innerWidth : screen.width) -
+        clientX -
+        this.cursor.div.offsetWidth / 2;
+      const pos = clientX + (tmp < 0 ? tmp : 0) - this.cursor.div.offsetWidth / 2;
+      this.cursor.div.style.left = `${pos < 0 ? 0 : pos}px`;
+      this.cursor.div.style.top = `${clientY}px`;
+      this.cursor.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.cursor.ctx.strokeStyle = this.cursor.color;
+      this.cursor.ctx.lineWidth = this.cursor.width;
+      this.cursor.ctx.beginPath();
+      this.cursor.ctx.moveTo(this.x.points[c][line], this.canvas.height / 10 + 5);
+      this.cursor.ctx.lineTo(this.x.points[c][line], this.canvas.height - this.canvas.height / 10);
+      this.cursor.ctx.stroke();
+    }
   }
 
   _calculateXGrades() {
