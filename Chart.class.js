@@ -786,13 +786,15 @@ class Chart {
     this.grades.ctx.lineWidth = this.grades.width;
     this.grades.ctx.font = this.text.font;
     this.grades.ctx.fillStyle = this.text.fillStyle;
+    this.grades.shades = 5;
+    this.grades.ctx.globalAlpha = 0.5;
     this.grades.ctx.beginPath();
     for (let i = 0; i < this.grades.points[0].length; i++) {
       this.grades.aPoints[0][i] = this.grades.points[0][i];
       this._drawYGradeLine(0, i, 'points');
     }
-    this.grades.shades = 5;
     this.grades.ctx.stroke();
+    // this._drawYGrades();
     // xGrades
     this.xGrades.ctx.strokeStyle = this.grades.color;
     this.xGrades.ctx.lineWidth = this.grades.width;
@@ -800,6 +802,11 @@ class Chart {
     this.xGrades.ctx.fillStyle = this.text.fillStyle;
     this.xGrades.alpha = 5;
     this._drawXGrades();
+    return this;
+  }
+
+  render2() {
+    this._drawHandlerLine();
     return this;
   }
 

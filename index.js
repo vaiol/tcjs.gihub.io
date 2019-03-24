@@ -76,7 +76,7 @@ const switchMode = () => {
           buttonBackground: '#9fa7b4',
           buttonColor: '#000',
         })
-        .render(),
+        .render2(),
     );
     night = false;
   } else {
@@ -94,11 +94,10 @@ const switchMode = () => {
           buttonBackground: '#364555',
           buttonColor: '#FFF',
         })
-        .render(),
+        .render2(),
     );
     night = true;
   }
-
 };
 
 switchButton.onclick = switchMode;
