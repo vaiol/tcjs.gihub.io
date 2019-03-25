@@ -213,6 +213,7 @@ class Chart {
     this.cursor.div.style.backgroundColor = this.cursor.label;
     this.cursor.div.style.color = this.cursor.labelColor;
     generateLableChild(el, this.lines.length);
+    this.cursor.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // draw cursor circles
     let output = false;
@@ -250,7 +251,6 @@ class Chart {
       const pos = clientX + (tmp < 0 ? tmp : 0) - this.cursor.div.offsetWidth / 2;
       this.cursor.div.style.left = `${pos < 0 ? 0 : pos}px`;
       this.cursor.div.style.top = `${clientY}px`;
-      this.cursor.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.cursor.ctx.strokeStyle = this.cursor.color;
       this.cursor.ctx.lineWidth = this.cursor.width;
       this.cursor.ctx.beginPath();
