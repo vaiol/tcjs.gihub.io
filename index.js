@@ -46,13 +46,17 @@ for (let i = 0; i < dataSets.length; i++) {
   charts[i] = chart;
 }
 
+let prevWidth = 0;
 const setSize = () => {
   const width = Math.min(window.screen.availWidth, window.innerWidth);
+  if (width === prevWidth) {
+    return;
+  }
+  prevWidth = width;
   const newWidth = width - width / 10;
-  const newWidth2 = newWidth > 1000 ? 1000 : newWidth;
   charts.forEach(chart =>
     chart
-      .setSize(newWidth2, 500)
+      .setSize(newWidth > 1000 ? 1000 : newWidth, 500)
       .calculate()
       .render(),
   );
