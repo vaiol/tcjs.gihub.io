@@ -742,9 +742,6 @@ class Chart {
     }
     div.style.color = this.cursor.labelColor;
     for (let i = 0; i < this.lines.length; i++) {
-      if (!this.lines[i].selected) {
-        continue;
-      }
       const btn = document.createElement('button');
       const btnDiv = document.createElement('div');
       const btnDivDiv = document.createElement('div');
@@ -767,6 +764,9 @@ class Chart {
         this.turnLine(this.lines[i].name);
       });
       div.appendChild(btn);
+      if (!this.lines[i].selected) {
+        btnDiv.classList.toggle('disabled');
+      }
     }
     return this;
   }
